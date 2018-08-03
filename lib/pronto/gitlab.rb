@@ -16,6 +16,8 @@ module Pronto
         arr = []
         client.merge_request_discussions(slug, pull_id).each do |comment|
           comment.notes.each do |note|
+            next unless note['position']
+
             arr << Comment.new(
               sha,
               note['body'],
