@@ -28,7 +28,7 @@ module Pronto
       end
     end
 
-    def create_pull_request_review(comments)
+    def create_pull_request_review(comments, base_sha)
       return if comments.empty?
 
       comments.each do |comment|
@@ -40,8 +40,8 @@ module Pronto
             new_line: comment.position,
             old_line: nil,
             head_sha: comment.sha,
-            start_sha: comment.sha,
-            base_sha: comment.sha
+            start_sha: base_sha,
+            base_sha: base_sha
           }
         }
 

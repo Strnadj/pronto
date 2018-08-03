@@ -10,14 +10,13 @@ module Pronto
       end
 
       def existing_comments(_, client, repo)
-        byebug
         sha = repo.head_commit_sha
         comments = client.pull_comments(sha)
         grouped_comments(comments)
       end
 
       def submit_comments(client, comments)
-        client.create_pull_request_review(comments)
+        client.create_pull_request_review(comments, @patches.commit)
       rescue => e
         $stderr.puts "Failed to post: #{e.message}"
       end

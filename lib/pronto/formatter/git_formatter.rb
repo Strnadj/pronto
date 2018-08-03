@@ -2,6 +2,8 @@ module Pronto
   module Formatter
     class GitFormatter < Base
       def format(messages, repo, patches)
+        @patches = patches
+
         client = client_module.new(repo)
         existing = existing_comments(messages, client, repo)
         comments = new_comments(messages, patches)
