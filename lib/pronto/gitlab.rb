@@ -1,11 +1,8 @@
-require 'byebug'
-
 module Pronto
   class Gitlab < Client
     def commit_comments(sha)
       @comment_cache[sha.to_s] ||= begin
         client.commit_comments(slug, sha, per_page: 500).map do |comment|
-          byebug
           Comment.new(sha, comment.note, comment.path, comment.line)
         end
       end
@@ -46,8 +43,6 @@ module Pronto
             base_sha: base_sha
           }
         }
-
-        byebug
 
         client.create_merge_request_discussion(slug, pull_id, options)
       end
